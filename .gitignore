@@ -38,6 +38,7 @@ yarn-error.log*
 Thumbs.db
 .vscode/
 .idea/
+.claude/
 
 # real client data — never commit
 # treatises are per-client PII; only the demo template is tracked

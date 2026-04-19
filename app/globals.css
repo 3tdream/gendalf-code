@@ -1,40 +1,172 @@
 @import "tailwindcss";
 
-:root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
-  --primary: 220 70% 50%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96.1%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96.1%;
-  --muted-foreground: 0 0% 45.1%;
-  --accent: 0 0% 96.1%;
-  --accent-foreground: 0 0% 9%;
-  --destructive: 0 84.2% 60.2%;
-  --border: 0 0% 89.8%;
-  --ring: 220 70% 50%;
-  --radius: 0.5rem;
+@theme {
+  --color-parchment-50: #fbf7ee;
+  --color-parchment-100: #f4f0e8;
+  --color-parchment-200: #ece6da;
+  --color-parchment-300: #d8cfbe;
+  --color-parchment-400: #b8ab8e;
+  --color-parchment-500: #8a7a60;
+  --color-parchment-600: #5a4a38;
+  --color-parchment-700: #3d2f1f;
+  --color-parchment-800: #2a1f14;
+  --color-parchment-900: #1a120a;
+
+  --color-ochre-400: #d88a38;
+  --color-ochre-500: #c8741a;
+  --color-ochre-600: #a45a10;
+  --color-ochre-700: #7a4208;
+
+  --color-moss-500: #6b8a5a;
+  --color-moss-600: #4f6a42;
+
+  --color-ink: #1a120a;
+
+  --font-display: var(--font-cinzel), "Cinzel", Georgia, serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
 }
 
-.dark {
-  --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%;
-  --primary: 220 70% 50%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --border: 0 0% 14.9%;
-  --ring: 220 70% 50%;
+html, body {
+  background: #f4f0e8;
+  color: #2a1f14;
 }
 
 body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-serif);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(200, 116, 26, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(164, 90, 16, 0.05) 0%, transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(90, 74, 56, 0.015) 2px,
+      rgba(90, 74, 56, 0.015) 3px
+    );
+  background-attachment: fixed;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+  }
+  .font-rune {
+    font-family: "Noto Sans Runic", var(--font-serif);
+  }
+
+  .parchment-card {
+    background: linear-gradient(145deg, #fbf7ee 0%, #f4f0e8 50%, #ece6da 100%);
+    border: 1px solid #d8cfbe;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 0 0 1px rgba(90, 74, 56, 0.04),
+      0 10px 30px -12px rgba(90, 74, 56, 0.18);
+  }
+
+  .ornament-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #a45a10;
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #b8ab8e, transparent);
+  }
+
+  .btn-ink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f1e4bf;
+    background: linear-gradient(180deg, #2a1f14 0%, #1a120a 100%);
+    border: 1px solid #1a120a;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 6px 16px -8px rgba(26, 18, 10, 0.5);
+    transition: all 200ms ease;
+  }
+  .btn-ink:hover {
+    background: linear-gradient(180deg, #3d2f1f 0%, #2a1f14 100%);
+    transform: translateY(-1px);
+  }
+
+  .btn-ochre {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #2a1f14;
+    background: linear-gradient(180deg, #d88a38 0%, #c8741a 100%);
+    border: 1px solid #a45a10;
+    box-shadow:
+      0 1px 0 rgba(255, 240, 200, 0.4) inset,
+      0 6px 16px -8px rgba(164, 90, 16, 0.4);
+    transition: all 200ms ease;
+  }
+  .btn-ochre:hover {
+    background: linear-gradient(180deg, #c8741a 0%, #a45a10 100%);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5a4a38;
+    background: transparent;
+    border: 1px solid #d8cfbe;
+    transition: all 200ms ease;
+  }
+  .btn-ghost:hover {
+    color: #a45a10;
+    border-color: #a45a10;
+  }
+
+  .rune-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 9999px;
+    border: 1px solid #d8cfbe;
+    background: radial-gradient(circle at 30% 30%, #fbf7ee 0%, #ece6da 70%);
+    color: #a45a10;
+    font-family: "Noto Sans Runic", serif;
+    font-size: 2.75rem;
+    line-height: 1;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 0 0 6px rgba(200, 116, 26, 0.05),
+      0 0 0 7px rgba(200, 116, 26, 0.12),
+      0 10px 25px -10px rgba(164, 90, 16, 0.25);
+  }
+
+  .label-micro {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c8741a;
+  }
 }
