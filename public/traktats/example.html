@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Код Гендальфа · Демо-шаблон трактата</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f0e8;--bg-2:#ece6da;--ink:#2a1f14;--ink-soft:#5a4a38;
+    --copper:#c8741a;--copper-deep:#a45a10;--gold:#d4a843;--gold-soft:#e8c978;
+    --dark:#0a0a0a;--dark-2:#141210;--line:#d8cfbe;--rune:#8a6a3a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.65}
+  h1,h2,h3,h4{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.04em;color:var(--ink)}
+  h1{font-size:2.6rem;margin:0 0 .4rem}
+  h2{font-size:1.7rem;margin:2.2rem 0 .8rem;color:var(--copper-deep)}
+  h3{font-size:1.15rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:1.6rem 0 .5rem}
+  h4{font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--copper);margin:1rem 0 .3rem}
+  p{margin:.6rem 0}
+
+  .hero{position:relative;background:linear-gradient(180deg,#0a0a0a 0%,#141210 100%);color:#efe6d1;padding:96px 24px 88px;overflow:hidden;text-align:center}
+  .hero .watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#d4a84311;font-size:clamp(120px,24vw,360px);font-weight:700;letter-spacing:.3em;user-select:none;pointer-events:none}
+  .hero .inner{position:relative;z-index:2;max-width:920px;margin:0 auto}
+  .hero .label{font-family:'Raleway',sans-serif;letter-spacing:.5em;font-size:.75rem;color:var(--gold-soft);text-transform:uppercase;margin-bottom:28px}
+  .hero h1{color:#f2e7cb;font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.05}
+  .hero h1 small{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:.45em;color:#cfbd8f;letter-spacing:.08em;margin-top:14px}
+  .hero .subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;color:#cfbd8f;font-size:1.25rem;margin-top:22px;max-width:640px;margin-left:auto;margin-right:auto}
+  .hero .rune-row{margin:36px auto 0;display:flex;justify-content:center;gap:28px;font-family:'Cinzel',serif;color:var(--gold);font-size:2rem;letter-spacing:.4em}
+  .hero .credit{margin-top:38px;font-family:'Raleway',sans-serif;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:#bfac7f}
+
+  .wrap{max-width:960px;margin:0 auto;padding:28px 24px 120px}
+  section{padding:28px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .section-num{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.35em;color:var(--copper);text-transform:uppercase}
+
+  nav.toc{position:sticky;top:0;z-index:50;background:rgba(244,240,232,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:14px;overflow-x:auto;font-family:'Raleway',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;white-space:nowrap}
+  nav.toc a:hover{color:var(--copper-deep)}
+
+  .rune-card{background:#fbf7ee;border:1px solid var(--line);border-left:4px solid var(--copper);border-radius:4px;padding:20px 22px;margin:14px 0;display:grid;grid-template-columns:90px 1fr;gap:18px}
+  .rune-card .glyph{font-family:'Cinzel',serif;font-size:3.6rem;line-height:1;color:var(--copper-deep);text-align:center}
+  .rune-card .glyph small{display:block;font-size:.9rem;letter-spacing:.2em;color:var(--ink-soft);margin-top:6px}
+  .rune-card .row{display:grid;grid-template-columns:120px 1fr;gap:10px;margin:4px 0;font-size:.98rem}
+  .rune-card .row .k{font-family:'Raleway',sans-serif;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);padding-top:3px}
+
+  .anchor{background:linear-gradient(180deg,#141210,#0a0a0a);color:#f1e4bf;border:1px solid #2a2520;border-left:3px solid var(--gold);padding:22px 26px;margin:26px 0;font-family:'Cinzel',serif;font-size:1.05rem;letter-spacing:.1em;line-height:1.5;text-align:center}
+  .anchor::before{content:"▸  ";color:var(--gold)}
+  .anchor::after{content:"  ◂";color:var(--gold)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-family:'Raleway',sans-serif;font-size:.92rem}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#efe7d4;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+  td .glyph{font-family:'Cinzel',serif;color:var(--copper-deep);font-size:1.3rem;margin-right:8px}
+
+  .formula{background:#141210;color:#f2e5bf;padding:28px 22px;text-align:center;margin:22px 0;border:1px solid #2a2520}
+  .formula .line{font-family:'Cinzel',serif;font-size:1.8rem;letter-spacing:.15em;color:var(--gold);display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
+  .formula .line span.op{color:#aa8844;font-size:1.3rem}
+  .formula .caption{font-family:'Cormorant Garamond',serif;font-style:italic;margin-top:14px;color:#cfbd8f;font-size:1.05rem}
+
+  .body-map{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .body-map .node{background:#fbf7ee;border:1px solid var(--line);padding:14px 16px;border-radius:4px}
+  .body-map .node strong{font-family:'Cinzel',serif;color:var(--copper-deep);display:block;margin-bottom:4px;font-size:.92rem;letter-spacing:.08em}
+  .body-map .node .rune{font-family:'Cinzel',serif;color:var(--gold);font-size:1.2rem;float:right}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+  .col{padding:18px 20px;border-radius:4px}
+  .col.down{background:#efe3d4;border-left:3px solid var(--ink-soft)}
+  .col.up{background:#e9e0c1;border-left:3px solid var(--gold)}
+
+  .practice{background:#fbf7ee;border:1px solid var(--line);padding:16px 20px;margin:10px 0;border-radius:4px}
+  .practice h4{color:var(--copper-deep);margin:0 0 6px}
+  .practice .chip{display:inline-block;background:var(--bg-2);border:1px solid var(--line);padding:2px 10px;border-radius:99px;font-family:'Raleway',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-deep);margin-right:6px}
+
+  .final{background:linear-gradient(180deg,#0a0a0a,#1a1510);color:#f2e5bf;text-align:center;padding:64px 28px;margin:36px 0 0;border:1px solid #2a2520}
+  .final-phrase{font-family:'Cinzel',serif;font-size:clamp(1.2rem,2.8vw,2rem);letter-spacing:.12em;color:var(--gold);line-height:1.4;padding:10px 0;animation:runeGlow 3s ease-in-out infinite alternate}
+  @keyframes runeGlow{
+    from{text-shadow:0 0 16px rgba(212,168,67,.3),0 0 32px rgba(212,168,67,.15)}
+    to  {text-shadow:0 0 28px rgba(212,168,67,.8),0 0 60px rgba(212,168,67,.4)}
+  }
+
+  .service{background:#fbf7ee;border:1px solid var(--line);padding:26px 28px;border-radius:4px;margin-top:20px}
+  .phrase-group{background:#fbf7ee;border:1px solid var(--line);padding:14px 18px;border-radius:4px;margin:8px 0}
+  .phrase-group blockquote{margin:6px 0;padding-left:14px;border-left:2px solid var(--copper);font-style:italic;color:var(--ink)}
+
+  .placeholder{background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(200,116,26,.04) 10px,rgba(200,116,26,.04) 20px);border:1px dashed rgba(200,116,26,.3);padding:14px 18px;border-radius:4px;color:var(--ink-soft);font-style:italic;margin:10px 0}
+
+  @media(max-width:720px){
+    .rune-card{grid-template-columns:60px 1fr;padding:16px}
+    .rune-card .glyph{font-size:2.6rem}
+    .two-col,.body-map{grid-template-columns:1fr}
+    .formula .line{font-size:1.3rem}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="watermark">ᛞ</div>
+  <div class="inner">
+    <div class="label">Код Гендальфа · Шаблон трактата</div>
+    <h1>ДЕМО КЛИЕНТ
+      <small>דמו · 15.03.1990 · Город → Страна</small>
+    </h1>
+    <div class="subtitle">Это демонстрационный трактат. Полный набор разделов, компонентов и якорных фраз на месте — заменяется содержимым при генерации.</div>
+    <div class="rune-row">ᚨ ᚷ ᛚ ᛞ ᛟ ᛒ</div>
+    <div class="credit">Авторская система Леи Ниши Гельфанд · Версия 7.0 · 2026</div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1">I. Данные</a>
+  <a href="#s2">II. Сила и конфликт</a>
+  <a href="#s3">III. Коды</a>
+  <a href="#s4">IV. Род</a>
+  <a href="#s5">V. Дата</a>
+  <a href="#s6">VI. Имена</a>
+  <a href="#s7">VII. Архетип</a>
+  <a href="#s8">VIII. Кеназ</a>
+  <a href="#s9">IX. Спад / Рост</a>
+  <a href="#s10">X. Деньги</a>
+  <a href="#s11">XI. Тело</a>
+  <a href="#s12">XII. Тень</a>
+  <a href="#s13">XIII. Реализация</a>
+  <a href="#s14">XIV. Фразы</a>
+  <a href="#s15">XV. Мастер</a>
+  <a href="#s16">XVI. Финал</a>
+</nav>
+
+<div class="wrap">
+
+<section id="s1">
+  <div class="section-num">Раздел I</div>
+  <h2>Исходные данные</h2>
+  <p>Блок данных клиента: ФИО, имена в жизни / предыдущие, имя и фамилия на иврите, дата и время рождения, место, страна проживания, запрос, сфера, финансовый контекст, телесные симптомы.</p>
+  <div class="placeholder">Здесь перечисляются все введённые в анкете поля. Чего нет — указывается прямо.</div>
+</section>
+
+<section id="s2">
+  <div class="section-num">Раздел II</div>
+  <h2>Главные руны — сила и конфликт</h2>
+  <p>Силовой каркас, основные опоры, точки напряжения. Каждая ключевая руна раскрывается карточкой ниже.</p>
+  <div class="rune-card">
+    <div class="glyph">ᚨ<small>Ansuz</small></div>
+    <div>
+      <h3>Пример рун-карточки</h3>
+      <div class="row"><div class="k">Механика</div><div>Как работает в психике и поведении.</div></div>
+      <div class="row"><div class="k">Тень</div><div>Как проявляется в дефиците.</div></div>
+      <div class="row"><div class="k">Ресурс</div><div>Как стать сильнее через эту руну.</div></div>
+      <div class="row"><div class="k">Тело</div><div>Где живёт, какой зажим сигнализирует.</div></div>
+      <div class="row"><div class="k">Деньги</div><div>Как влияет на денежный сценарий.</div></div>
+    </div>
+  </div>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА — КОРОТКО И ТОЧНО ПРО ЭТОГО ЧЕЛОВЕКА</div>
+</section>
+
+<section id="s3">
+  <div class="section-num">Раздел III</div>
+  <h2>Расчёт кодов — таблица</h2>
+  <table>
+    <thead><tr><th>Слой</th><th>Свёртка</th><th>Руна</th><th>Смысл</th></tr></thead>
+    <tbody>
+      <tr><td>День</td><td>—</td><td><span class="glyph">ᚨ</span></td><td>одна смысловая строка</td></tr>
+      <tr><td>Месяц</td><td>—</td><td><span class="glyph">ᚷ</span></td><td>одна смысловая строка</td></tr>
+      <tr><td>Год</td><td>—</td><td><span class="glyph">ᛚ</span></td><td>одна смысловая строка</td></tr>
+      <tr><td>Сумма даты</td><td>—</td><td><span class="glyph">ᚹ</span></td><td>одна смысловая строка</td></tr>
+      <tr><td>Имя</td><td>—</td><td><span class="glyph">ᛞ</span></td><td>одна смысловая строка</td></tr>
+      <tr><td>Фамилия</td><td>—</td><td><span class="glyph">ᛟ</span></td><td>одна смысловая строка</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s4">
+  <div class="section-num">Раздел IV</div>
+  <h2>Родовой код — Одал и программы рода</h2>
+  <h3>4.1 Фамилия как родовой код</h3>
+  <div class="placeholder">Родовая задача воплощения. Сила и тень фамилии. Точка неотработанного страха.</div>
+  <h3>4.2 Родовые сценарии через Othala</h3>
+  <div class="placeholder">Что передали как дар. Что передали как незакрытый долг. Где деньги блокируются через родовой запрет.</div>
+  <h3>4.3 Момент разрыва родового сценария</h3>
+  <div class="placeholder">Точка биографии, где нарушен паттерн рода. Как разрыв держится в теле.</div>
+  <h3>4.4 Связь с ивритским слоем</h3>
+  <div class="placeholder">Где гематрия подтверждает или входит в противоречие с мирским кодом.</div>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s5">
+  <div class="section-num">Раздел V</div>
+  <h2>Глубокая расшифровка кода даты</h2>
+  <p>Рун-карточки каждого слоя даты: день, месяц, год, сумма.</p>
+  <div class="rune-card">
+    <div class="glyph">ᚷ<small>Месяц</small></div>
+    <div>
+      <div class="row"><div class="k">Психика</div><div>...</div></div>
+      <div class="row"><div class="k">Решения</div><div>...</div></div>
+      <div class="row"><div class="k">Стресс</div><div>...</div></div>
+      <div class="row"><div class="k">Деньги</div><div>...</div></div>
+    </div>
+  </div>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s6">
+  <div class="section-num">Раздел VI</div>
+  <h2>История имён — смена сценариев</h2>
+  <p>Разбор каждого слоя имени: документальное, бытовое, детское, ивритское. Что запускала каждая смена, что утрачено/приобретено.</p>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s7">
+  <div class="section-num">Раздел VII</div>
+  <h2>Архетипический портрет</h2>
+  <p>Конкретный архетип (не «интересная личность»). Глубинная роль, тип силы, авторитет и редкость, внутреннее противоречие, точка взросления.</p>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s8">
+  <div class="section-num">Раздел VIII</div>
+  <h2>Эффект синтеза — больше, чем система</h2>
+  <p>Как все руны объединяются в «нечто третье». Авторская система жизни, зашитая в код.</p>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s9">
+  <div class="section-num">Раздел IX</div>
+  <h2>Точки спада и точки роста</h2>
+  <div class="two-col">
+    <div class="col down">
+      <h4>Спад</h4>
+      <ul><li>Что происходит в теле</li><li>Что в поведении</li><li>Что в мышлении</li><li>Что в деньгах</li></ul>
+    </div>
+    <div class="col up">
+      <h4>Рост</h4>
+      <ul><li>Телесные маркеры ресурса</li><li>Поведенческие маркеры зрелой силы</li><li>Денежные сигналы</li></ul>
+    </div>
+  </div>
+  <h3>Переключатель</h3>
+  <div class="placeholder">Конкретное действие / телесная практика для выхода из спада. Не «верьте в себя».</div>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s10">
+  <div class="section-num">Раздел X</div>
+  <h2>Денежная диагностика</h2>
+  <h3>Тип действия, за который платят по природе</h3>
+  <p>Не «сфера», а функция.</p>
+  <h3>Персональный денежный рунический код</h3>
+  <p>4–6 рун, для каждой — функция в финансовом цикле.</p>
+  <div class="formula">
+    <div class="line">ᛈ <span class="op">→</span> ᚨ <span class="op">→</span> ᚷ <span class="op">→</span> ᛁ <span class="op">→</span> ᛞ <span class="op">→</span> ᚹ</div>
+    <div class="caption">Живая денежная формула — шесть шагов финансового цикла клиента.</div>
+  </div>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s11">
+  <div class="section-num">Раздел XI</div>
+  <h2>Психосоматика и телесные практики</h2>
+  <h3>11.1 Карта тела</h3>
+  <div class="body-map">
+    <div class="node"><span class="rune">ᚨ</span><strong>Горло, челюсть</strong>Локализация канала и типичные зажимы.</div>
+    <div class="node"><span class="rune">ᛚ</span><strong>Лимфа, поясница</strong>Точки застоя и потока.</div>
+    <div class="node"><span class="rune">ᛈ</span><strong>Низ живота, таз</strong>Колодец ресурса.</div>
+    <div class="node"><span class="rune">ᛁ</span><strong>Позвоночник, ось</strong>Стержень и заморозка.</div>
+  </div>
+  <h3>11.2 Механизм психосоматического блока</h3>
+  <p>Цепочка: непрожитая эмоция → хронический мышечный паттерн → телесный симптом → поведенческое ограничение.</p>
+  <h3>11.3 Персональные телесные практики</h3>
+  <div class="practice">
+    <h4>Практика · Пример</h4>
+    <span class="chip">Руна</span><span class="chip">Триггер</span>
+    <p><strong>Действие:</strong> конкретное телесное действие.</p>
+    <p><strong>Что активирует:</strong> связь с руной.</p>
+    <p><strong>Эффект:</strong> ожидаемый результат.</p>
+  </div>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s12">
+  <div class="section-num">Раздел XII</div>
+  <h2>Теневой код</h2>
+  <p style="text-align:center;padding:14px;background:#efe3d4;border-radius:4px;font-family:'Raleway',sans-serif;font-size:.95rem;letter-spacing:.08em">
+    [триггер] → [реакция] → [поведение] → [результат] → [подкрепление]
+  </p>
+  <p>Как человек сам поддерживает свой тупик и как выйти через ресурсную сторону теневой руны.</p>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s13">
+  <div class="section-num">Раздел XIII</div>
+  <h2>Код реализации</h2>
+  <p>Лучшая территория силы. Форматы работы — где раскрывается / где разрушается. Как масштабироваться без саморазрушения.</p>
+  <div class="anchor">ЯКОРНАЯ ФРАЗА РАЗДЕЛА</div>
+</section>
+
+<section id="s14">
+  <div class="section-num">Раздел XIV</div>
+  <h2>Ключевые внутренние фразы</h2>
+  <div class="phrase-group">
+    <h4>Фразы тени / страха / усталости / денежного блока</h4>
+    <blockquote>«Пример внутренней фразы, которую человек реально думает.»</blockquote>
+  </div>
+  <div class="phrase-group">
+    <h4>Фразы зрелой силы — узнать и присвоить</h4>
+    <blockquote>«Пример фразы-ресурса.»</blockquote>
+  </div>
+</section>
+
+<section id="s15">
+  <div class="section-num">Раздел XV</div>
+  <h2>Чем может помочь мастер</h2>
+  <div class="service">
+    <p>Краткое описание мастера и методов работы.</p>
+    <ul>
+      <li><strong>Формат 1</strong> — описание, длительность</li>
+      <li><strong>Формат 2</strong> — описание</li>
+      <li><strong>Формат 3</strong> — описание</li>
+    </ul>
+    <p><strong>Следующий шаг:</strong> конкретное действие для клиента.</p>
+  </div>
+</section>
+
+<section id="s16">
+  <div class="section-num">Раздел XVI</div>
+  <h2>Финальный вывод и собирающее послание</h2>
+  <h3>Главная проблема</h3>
+  <p>Честно, без смягчений.</p>
+  <h3>Главный ключ к росту</h3>
+  <p>Один конкретный жест.</p>
+  <h3>Формула реализации</h3>
+  <p>Короткая формула в одну-две строки.</p>
+  <div class="final">
+    <div class="final-phrase">
+      ФИНАЛЬНАЯ ЯКОРНАЯ ФРАЗА —<br>
+      ОДНА СТРОКА, КОТОРАЯ<br>
+      ЗАПОМИНАЕТСЯ НАВСЕГДА
+    </div>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:40px 20px;color:var(--ink-soft);font-family:'Raleway',sans-serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase">
+  Код Гендальфа · Авторская система Леи Ниши Гельфанд · Версия 7.0 · 2026
+</footer>
+
+</div>
+</body>
+</html>
